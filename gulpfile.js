@@ -8,19 +8,37 @@ const cssnano = require("cssnano");
 const browserSync = require("browser-sync").create();
 const uglify = require("gulp-uglify");
 
+//====== What's the folder to watch and reload ?
+
+// Where is your source files ?
+const srcFolder = "src/";
+
+// Where is your destination files ?
+const distFolder = "dist/";
+
+//======
+
 //Compile, prefix and minifify scss
 function scssTask() {
-  return src("src/scss/app/*.scss", { since: lastRun(scssTask) }, { sourcemaps: true })
+  return src(
+    srcFolder+"scss/app/*.scss",
+    { since: lastRun(scssTask) },
+    { sourcemaps: true }
+  )
     .pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(postcss([autoprefixer(), cssnano]))
     .pipe(sourcemaps.write("."))
-    .pipe(dest("dist/css/"))
+    .pipe(dest(distFolder+"css/"))
     .pipe(browserSync.stream());
 }
 
 function scssBsTask() {
-  return src("src/vendor/bootstrap/*.scss", { since: lastRun(scssBsTask) }, { sourcemaps: true })
+  return src(
+    "src/vendor/bootstrap/*.scss",
+    { since: lastRun(scssBsTask) },
+    { sourcemaps: true }
+  )
     .pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(postcss([autoprefixer(), cssnano]))
@@ -31,9 +49,9 @@ function scssBsTask() {
 
 // compile uglify and replace js
 function jsTask() {
-  return src("src/js/app/*.js", { since: lastRun(jsTask) })
+  return src(srcFolder+"js/app/*.js", { since: lastRun(jsTask) })
     .pipe(uglify())
-    .pipe(dest("dist/js/"))
+    .pipe(dest(distFolder+"dist/js/"))
     .pipe(browserSync.stream());
 }
 
@@ -46,30 +64,32 @@ function jsBsTask() {
 
 // replace html
 function htmlTask() {
-  return src("*.html").pipe(dest("dist/"));
+  return src(srcFolder+"*.html").pipe(dest(distFolder));
+
 }
 
 function watchTask() {
   browserSync.init({
     server: {
-      baseDir: "dist/"
+      baseDir: distFolder
+
     }
   });
   watch(
-    ["src/scss/app/*.scss", "*.html", "src/js/app/*.js"],
-    series(parallel(scssTask, jsTask), htmlTask)
+    [srcFolder+"scss/app/*.scss" , srcFolder+"*.html", srcFolder+"js/app/*.js"],
+    series(htmlTask, scssTask, jsTask)
   ).on("change", browserSync.reload);
 }
 
 function watchTaskFull() {
   browserSync.init({
     server: {
-      baseDir: "dist/"
+      baseDir: distFolder
     }
   });
   watch(
     ["*.scss", "*.html", "*.js"],
-    series(parallel(scssTask,scssBsTask, jsTask), htmlTask)
+    series(parallel(scssTask, scssBsTask, jsTask), htmlTask)
   ).on("change", browserSync.reload);
 }
 
