@@ -1,8 +1,65 @@
-$black : red;
-$red : red;
 
-.nico{
-    background: red;
-    width: 400px;
-    height: 300px;
+$primary : #cacaca!default;
+
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.wrapper{
+  padding-top: 5rem;
 }
+
+// $vals: 768px, 992px, 1200px;
+// $breaks: sm, md, xl;
+
+// $base-space: 1rem;
+
+// @for $i from 0 through 4 {
+//   .p-#{$i} {
+//     padding: ($i * $base-space);
+//   }
+//   .pt-#{$i} {
+//     padding-top: ($i * $base-space);
+//   }
+//   .pb-#{$i} {
+//     padding-bottom: ($i * $base-space);
+//   }
+//   .pr-#{$i} {
+//     padding-right: ($i * $base-space);
+//   }
+//   .pl-#{$i} {
+//     padding-left: ($i * $base-space);
+//   }
+//   .px-#{$i} {
+//     padding-left: ($i * $base-space);
+//     padding-right: ($i * $base-space);
+//   }
+//   .py-#{$i} {
+//     padding-top: ($i * $base-space);
+//     padding-bottom: ($i * $base-space);
+//   }
+// }
+
+// @for $i from 0 through 4 {
+//   .m-#{$i} {
+//     margin: ($i * $base-space);
+//   }
+//   .mt-#{$i} {
+//     margin-top: ($i * $base-space);
+//   }
+//   .mb-#{$i} {
+//     margin-bottom: ($i * $base-space);
+//   }
+//   .mr-#{$i} {
+//     margin-right: ($i * $base-space);
+//   }
+//   .ml-#{$i} {
+//     margin-left: ($i * $base-space);
+//   }
+//   .mx-#{$i} {
+//     margin-left: ($i * $base-space);
+//     margin-right: ($i * $base-space);
+//   }
+//   .my-#{$i} {
+//     margin-top: ($i * $base-space);
+//     margin-bottom: ($i * $base-space);
+//   }
+// }
